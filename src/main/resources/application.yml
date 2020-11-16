@@ -1,0 +1,44 @@
+management:
+  security:
+    enabled: false
+  endpoint:
+    caches:
+      enabled: true
+    configprops:
+      enabled: true
+    env:
+      enabled: true
+    health:
+      enabled: true
+    info:
+      enabled: true
+    metrics:
+      enabled: true
+    scheduledtasks:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health,info,env,scheduledtasks,configprops,caches,metrics
+  info:
+    git:
+      mode: full
+
+info:
+  runId: ${random.uuid}
+
+spring:
+  application:
+    name=: SWAT Authorization Service
+  datasource:
+    driverClassName: org.h2.Driver
+    password: ''
+    url: jdbc:h2:mem:db
+    username: sa
+  h2:
+    console:
+      enabled: true
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update

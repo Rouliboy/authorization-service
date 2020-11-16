@@ -1,0 +1,27 @@
+image: docker:latest
+services:
+  - docker:dind
+
+variables:
+  DOCKER_DRIVER: overlay
+  #~ SPRING_PROFILES_ACTIVE: gitlab-ci
+
+stages:
+  - build
+  #~ - package
+
+maven-build:
+  image: maven:3.6.3-jdk-11
+  stage: build
+  script: "mvn clean package"
+  artifacts:
+    paths:
+      - target/*.jar
+
+#~ docker-build:
+  #~ stage: package
+  #~ script:
+  #~ - echo "Dummy docker build"
+  #~ - docker build -t registry.gitlab.com/marcolenzo/actuator-sample .
+  #~ - docker login -u gitlab-ci-token -p $CI_BUILD_TOKEN registry.gitlab.com
+  #~ - docker push registry.gitlab.com/marcolenzo/actuator-sample
